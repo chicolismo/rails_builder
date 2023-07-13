@@ -1,0 +1,13 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    cli-ui (2.2.3)
+
+PLATFORMS
+  x86_64-darwin-19
+
+DEPENDENCIES
+  cli-ui
+
+BUNDLED WITH
+   2.4.16
