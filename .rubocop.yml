@@ -1,13 +1,145 @@
+# The behavior of RuboCop can be controlled via the .rubocop.yml
+# configuration file. It makes it possible to enable/disable
+# certain cops (checks) and to alter their behavior if they accept
+# any parameters. The file can be placed either in your home
+# directory or in some project directory.
+#
+# RuboCop will start looking for the configuration file in the directory
+# where the inspected file is and continue its way up to the root directory.
+#
+# See https://docs.rubocop.org/rubocop/configuration
+
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 3.1
+  NewCops: enable
+  Exclude:
+    - 'vendor/**/*'
+    - 'spec/fixtures/**/*'
+    - 'tmp/**/*'
+    - '.git/**/*'
+    - 'bin/*'
+
+Metrics/BlockLength:
+  Enabled: false
+
+# Naming {{{
+Naming/MethodParameterName:
+  Enabled: false
+  MinNameLength: 3
+  AllowedNames: []
+  ForbiddenNames: []
+# }}}
+
+# Style {{{
+Style/Alias:
+  # Options: prefer_alias | prefer_alias_method
+  EnforcedStyle: prefer_alias
+  AutoCorrect: true
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+  EnforcedStyle: nested # compact | nested
+
+Style/Documentation:
+  Description: "Verifica se há documentação de módulos e classes"
+  Enabled: false
+
+Style/DocumentationMethod:
+  Enabled: false
+  RequireForNonPublicMethods: false
+
+Style/GlobalVars:
+  Description: "Verifica se variáveis globais foram introduzidas"
+  Enabled: true
+
+Style/HashSyntax:
+  EnforcedStyle: hash_rockets
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/OpenStructUse:
+  Enabled: true
+
+Style/TrailingCommaInArguments:
+  # Possible values:
+  #
+  # consistent_comma: Requires a comma after the last argument, for all
+  # parenthesized method calls with arguments.
+  #
+  # comma: Requires a comma after the last argument, but only for
+  # parenthesized method calls where each argument is on its own line.
+  #
+  # no_comma: Requires that there is no comma after the last argument.
+  EnforcedStyleForMultiline: comma
+# }}}
 
 Style/StringLiterals:
-  Enabled: true
-  EnforcedStyle: double_quotes
+  Enabled: false
 
-Style/StringLiteralsInInterpolation:
-  Enabled: true
-  EnforcedStyle: double_quotes
-
+# Layout {{{
 Layout/LineLength:
-  Max: 120
+  Max: 100
+  AutoCorrect: true
+
+Layout/EmptyLines:
+  #Enabled: false
+  Enabled: true
+
+Layout/EmptyLineAfterMultilineCondition:
+  Enabled: true
+
+Layout/EmptyLineBetweenDefs:
+  NumberOfEmptyLines: 1
+  EmptyLineBetweenMethodDefs: true
+  EmptyLineBetweenClassDefs: true
+  EmptyLineBetweenModuleDefs: true
+  AllowAdjacentOneLineDefs: false
+  AutoCorrect: true
+
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+  # options:
+  #   * empty_lines
+  #   * empty_lines_except_namespace
+  #   * empty_lines_special
+  #   * beginning_only
+  #   * no_empty_lines (default)
+  EnforcedStyle: beginning_only
+
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: false
+  # options:
+  #   * empty_lines
+  #   * empty_lines_except_namespace
+  #   * empty_lines_special
+  #   * no_empty_lines (default)
+  EnforcedStyle: empty_lines
+
+Layout/FirstHashElementIndentation:
+  Enabled: false
+
+# }}}
+
+# Lint {{{
+Lint/UnusedBlockArgument:
+  Description: 'Checks for unused block arguments.'
+  StyleGuide: '#underscore-unused-vars'
+  Enabled: true
+  IgnoreEmptyBlocks: true
+  #AllowUnusedKeywordArguments: false
+  AllowUnusedKeywordArguments: true
+
+Lint/UnusedMethodArgument:
+  Description: 'Checks for unused method arguments.'
+  StyleGuide: '#underscore-unused-vars'
+  Enabled: true
+  #Enabled: false
+  #AllowUnusedKeywordArguments: false
+  AllowUnusedKeywordArguments: true
+  IgnoreEmptyMethods: true
+  IgnoreNotImplementedMethods: true
+# }}}
